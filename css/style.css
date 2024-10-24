@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+.calculator {
+  margin: auto;
+  width: 500px;
+  background-color: green;
+}
+
+.header {
+  background-color: #000000;
+}
+
+.header__list {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header__btn {
+  border: none;
+  background-color: orange;
+}
+
+.header__icon {
+  width: 20px;
+  height: 20px;
+}
