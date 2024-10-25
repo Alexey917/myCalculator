@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <main>
+  <main class="wrapper">
     <section class="calculator">
       <header class="header">
         <nav>
@@ -44,8 +44,66 @@
           </ul>
         </nav>
       </header>
-      <section class="calculator__dispaly"></section>
-      <section class="calculator__keyboard"></section>
+
+      <section class="display">
+        <p class="display__hist"></p>
+        <p class="display__hist"></p>
+        <p class="display__hist"></p>
+        <input type="text" class="display__input">
+        <p class="display__result"></p>
+      </section>
+
+      <section class="keyboard">
+        <button class="keyboard__btn">2nd</button>
+        <button class="keyboard__btn">rad</button>
+        <button class="keyboard__btn">sin</button>
+        <button class="keyboard__btn">cos</button>
+        <button class="keyboard__btn">tan</button>
+
+        <button class="keyboard__btn">x<sup>y</sup></button>
+        <button class="keyboard__btn">lg</button>
+        <button class="keyboard__btn">ln</button>
+        <button class="keyboard__btn">(</button>
+        <button class="keyboard__btn">)</button>
+
+        <button class="keyboard__btn">&#8730;x</button>
+        <button class="keyboard__btn keyboard_main-operation">C</button>
+        <button class="keyboard__btn keyboard_main-operation">
+          <svg class="header__icon">
+            <use href="img/sprite.svg#erase"></use>
+          </svg> 
+        </button>
+        <button class="keyboard__btn keyboard_main-operation">%</button>
+        <button class="keyboard__btn keyboard_main-operation">/</button>
+
+        <button class="keyboard__btn">x!</button>
+        <button class="keyboard__btn keyboard_number">7</button>
+        <button class="keyboard__btn keyboard_number">8</button>
+        <button class="keyboard__btn keyboard_number">9</button>
+        <button class="keyboard__btn keyboard_main-operation">*</button>
+
+        <button class="keyboard__btn">1/x</button>
+        <button class="keyboard__btn keyboard_number">4</button>
+        <button class="keyboard__btn keyboard_number">5</button>
+        <button class="keyboard__btn keyboard_number">6</button>
+        <button class="keyboard__btn keyboard_main-operation">-</button>
+
+        <button class="keyboard__btn">&pi;</button>
+        <button class="keyboard__btn keyboard_number">1</button>
+        <button class="keyboard__btn keyboard_number">2</button>
+        <button class="keyboard__btn keyboard_number">3</button>
+        <button class="keyboard__btn keyboard_main-operation">+</button>
+
+        <button class="keyboard__btn">
+          <svg class="header__icon">
+            <use href="img/sprite.svg#loop"></use>
+          </svg> 
+        </button>
+        <button class="keyboard__btn keyboard_number">e</button>
+        <button class="keyboard__btn keyboard_number">0</button>
+        <button class="keyboard__btn keyboard_number">.</button>
+        <button class="keyboard__btn keyboard_main-operation">=</button>
+      </section>
     </section>
   </main>
 
