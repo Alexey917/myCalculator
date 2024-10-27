@@ -60,12 +60,19 @@ body {
   height: 150px;
 }
 
-.display__input {
+.display__input[type = "text"] {
   width: 100%;
+  text-align: right;
+  padding: 0 15px;
   font-size: 35px;
   border: none;
   color: #ffffff;
-  background-color: #4e4b4b;
+  background-color: #000000;
+  /* direction: rtl; */
+}
+
+.display__input:focus {
+  outline: none;
 }
 
 .keyboard {
