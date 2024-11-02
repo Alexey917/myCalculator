@@ -75,6 +75,14 @@ body {
   outline: none;
 }
 
+.display__result {
+  text-align: right;
+  padding: 0 15px;
+  font-size: 20px;
+  color: #585656;
+  background-color: #000000;
+}
+
 .keyboard {
   display: flex;
   align-items: center;
