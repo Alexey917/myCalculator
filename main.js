@@ -13,6 +13,23 @@ const calculator = {
   "%": (lOperand, rOperand) => +lOperand % +rOperand,
 };
 
+function countingTheResult(str) {
+  str = str.slice(0, str.length - 1);
+  console.log(str);
+  mas = str.split(/[+-/*%]/g);
+  console.log(mas);
+  calculator.lOperand = mas[0];
+  calculator.rOperand = mas[1];
+  input.value = str;
+}
+
+function getResultBySteps(str) {
+  str = str.slice(0, str.length - 1);
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === ) 
+  }
+}
+
 keyboard.forEach((btn) => {
   btn.addEventListener("click", () => {
     input.focus();
@@ -30,6 +47,7 @@ keyboard.forEach((btn) => {
 
     strTemp = input.value;
     mainOperation = /[+-/*%]{2,}/g;
+    operations = strTemp.match(/[+-/*%]/g);
 
     if (strTemp.match(mainOperation)) {
       strTemp = strTemp.replace(mainOperation, btn.textContent);
@@ -37,12 +55,7 @@ keyboard.forEach((btn) => {
     }
 
     if (btn.textContent === "=") {
-      strTemp = strTemp.slice(0, strTemp.length - 1);
-      mas = strTemp.split(/[+-/*%]/g);
-      console.log(mas);
-      calculator.lOperand = mas[0];
-      calculator.rOperand = mas[1];
-      input.value = strTemp;
+      getResultBySteps(strTemp);
 
       let result;
 
@@ -51,9 +64,12 @@ keyboard.forEach((btn) => {
         if (Object.keys(calculator).includes(ch))
           result = calculator[ch](calculator.lOperand, calculator.rOperand);
       }
-      displayResult.textContent = "=" + result;
+      displayResult.textContent = "= " + result;
       console.log(result);
     }
+
+    // if (operations.length > 1) {
+    // }
 
     // console.log(input.value);
   });
