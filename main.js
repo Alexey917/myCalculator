@@ -13,21 +13,71 @@ const calculator = {
   "%": (lOperand, rOperand) => +lOperand % +rOperand,
 };
 
-function countingTheResult(str) {
-  str = str.slice(0, str.length - 1);
-  console.log(str);
-  mas = str.split(/[+-/*%]/g);
-  console.log(mas);
-  calculator.lOperand = mas[0];
-  calculator.rOperand = mas[1];
+function arrayForCalculations(str) {
+  str = str.slice(0, str.length - 1); // удаляем знак равно из строки
   input.value = str;
+  operands = str.split(/[+-/*%]/g); // выделяем только операнды
+  let operations = []; // массив для операций
+  let calc = []; // массив для вычисления итогового результата
+
+  /* вытаскиваем операторы из строки */
+  [...str].filter((item) => {
+    if (
+      item === "+" ||
+      item === "-" ||
+      item === "*" ||
+      item === "/" ||
+      item === "%"
+    ) {
+      operations.push(item);
+    }
+  });
+
+  /* заполняем итоговый массив */
+  for (let i = 0; i < operands.length; i++) {
+    calc.push(operands[i]);
+    if (operations[i]) {
+      calc.push(operations[i]);
+    }
+  }
+
+  return calc;
 }
 
-function getResultBySteps(str) {
-  str = str.slice(0, str.length - 1);
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === ) 
+function steps(array, index) {
+  calculator.lOperand = array[index - 1]; // задаем левый операнд
+  calculator.rOperand = array[index + 1]; // задаем правый операнд
+
+  let result;
+  /* вычисляем значение */
+  result = calculator[array[index]](calculator.lOperand, calculator.rOperand);
+
+  array.splice(index - 1, 3, result); // вставляем результат на место оператора и его операндов
+
+  index = 0; // идем заново по циклу, пока нужные нам знаки не закончаться
+  return array;
+}
+
+function getResultBySteps() {
+  let arr = arrayForCalculations(strTemp); // берем подготовленный в arrayForCalculations массив
+  let result;
+
+  /* сначало ищем в массиве знаки /,*,% и делаем связанные с ними вычисления */
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === "*" || arr[i] === "/" || arr[i] === "%") {
+      result = steps(arr, i);
+    }
   }
+
+  /* затем со знаками + и - */
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === "+" || arr[i] === "-") {
+      result = steps(arr, i);
+    }
+  }
+
+  /* отображаем результат в поле резултата */
+  displayResult.textContent = "= " + result;
 }
 
 keyboard.forEach((btn) => {
@@ -38,7 +88,10 @@ keyboard.forEach((btn) => {
       ? (input.value = btn.textContent)
       : (input.value += btn.textContent);
 
-    if (btn.textContent === "C") input.value = 0;
+    if (btn.textContent === "C") {
+      input.value = 0;
+      displayResult.textContent = "";
+    }
 
     if (btn.classList.contains("keyboard_erase")) {
       input.value = "";
@@ -55,21 +108,8 @@ keyboard.forEach((btn) => {
     }
 
     if (btn.textContent === "=") {
-      getResultBySteps(strTemp);
-
-      let result;
-
-      for (let ch of strTemp) {
-        console.log(strTemp);
-        if (Object.keys(calculator).includes(ch))
-          result = calculator[ch](calculator.lOperand, calculator.rOperand);
-      }
-      displayResult.textContent = "= " + result;
-      console.log(result);
+      getResultBySteps();
     }
-
-    // if (operations.length > 1) {
-    // }
 
     // console.log(input.value);
   });
