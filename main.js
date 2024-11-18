@@ -1,6 +1,7 @@
 const input = document.querySelector(".display__input");
 const keyboard = document.querySelectorAll(".keyboard__btn");
 const displayResult = document.querySelector(".display__result");
+const displayForm = document.querySelector(".display__form");
 
 const calculator = {
   lOperand: "",
@@ -13,8 +14,13 @@ const calculator = {
   "%": (lOperand, rOperand) => +lOperand % +rOperand,
 };
 
+const history = {};
+
 function arrayForCalculations(str) {
-  str = str.slice(0, str.length - 1); // удаляем знак равно из строки
+  if (str.includes("=")) {
+    str = str.slice(0, str.length - 1); // удаляем знак равно из строки
+  }
+
   input.value = str;
   operands = str.split(/[+-/*%]/g); // выделяем только операнды
   let operations = []; // массив для операций
@@ -53,19 +59,18 @@ function steps(array, index) {
   result = calculator[array[index]](calculator.lOperand, calculator.rOperand);
 
   array.splice(index - 1, 3, result); // вставляем результат на место оператора и его операндов
-
-  index = 0; // идем заново по циклу, пока нужные нам знаки не закончаться
   return array;
 }
 
 function getResultBySteps() {
   let arr = arrayForCalculations(strTemp); // берем подготовленный в arrayForCalculations массив
-  let result;
+  let result = input.value;
 
   /* сначало ищем в массиве знаки /,*,% и делаем связанные с ними вычисления */
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === "*" || arr[i] === "/" || arr[i] === "%") {
       result = steps(arr, i);
+      i = 0; // идем заново по циклу, пока нужные нам знаки не закончаться
     }
   }
 
@@ -73,6 +78,7 @@ function getResultBySteps() {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === "+" || arr[i] === "-") {
       result = steps(arr, i);
+      i = 0;
     }
   }
 
@@ -83,6 +89,8 @@ function getResultBySteps() {
 keyboard.forEach((btn) => {
   btn.addEventListener("click", () => {
     input.focus();
+    displayResult.classList.remove("display__result_show");
+    input.classList.remove("display__input_hidden");
 
     input.value == 0 && btn.classList.contains("keyboard_number")
       ? (input.value = btn.textContent)
@@ -109,10 +117,40 @@ keyboard.forEach((btn) => {
 
     if (btn.textContent === "=") {
       getResultBySteps();
+      input.blur();
+      displayResult.classList.add("display__result_show");
+      input.classList.add("display__input_hidden");
+      history[input.value] = displayResult.textContent;
+
+      let displayCalcAndRes = Object.keys(history).reverse().slice(0, 3);
+
+      let displayHistory = document.createElement("div");
+      displayHistory.classList.add("display__hist");
+      displayForm.prepend(displayHistory);
+
+      for (let i = 0; i < displayCalcAndRes.length; i++) {
+        let displayHistCalc = document.createElement("p");
+        displayHistCalc.classList.add("display__hist-calc");
+        displayHistory.append(displayHistCalc);
+
+        displayHistCalc.textContent = displayCalcAndRes[i];
+
+        let displayHistRes = document.createElement("p");
+        displayHistRes.classList.add("display__hist-res");
+        displayHistory.append(displayHistRes);
+
+        displayHistRes.textContent = history[displayCalcAndRes[i]];
+
+        console.log(displayCalcAndRes[i]);
+      }
     }
 
-    // console.log(input.value);
+    getResultBySteps();
   });
 });
 
-input.addEventListener("input", () => console.log(input.value));
+input.addEventListener("input", () => {
+  // getResultBySteps();
+  console.log(input.value);
+});
+
