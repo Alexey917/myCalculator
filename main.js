@@ -1,7 +1,11 @@
 const input = document.querySelector(".display__input");
 const keyboard = document.querySelectorAll(".keyboard__btn");
+const sectionKeyboard = document.querySelector(".keyboard");
 const displayResult = document.querySelector(".display__result");
 const displayForm = document.querySelector(".display__form");
+const displayHistory = document.querySelector(".display__hist")
+const keyboardToggle = document.querySelector(".keyboard_toggle")
+const display = document.querySelector(".display")
 
 const calculator = {
   lOperand: "",
@@ -86,6 +90,7 @@ function getResultBySteps() {
   displayResult.textContent = "= " + result;
 }
 
+
 keyboard.forEach((btn) => {
   btn.addEventListener("click", () => {
     input.focus();
@@ -117,40 +122,48 @@ keyboard.forEach((btn) => {
 
     if (btn.textContent === "=") {
       getResultBySteps();
-      input.blur();
       displayResult.classList.add("display__result_show");
       input.classList.add("display__input_hidden");
-      history[input.value] = displayResult.textContent;
 
-      let displayCalcAndRes = Object.keys(history).reverse().slice(0, 3);
+      history[input.value] = displayResult.textContent; // создаем ключ из input'a и записываем в него значение из displayResult
+      let displayCalcAndRes = Object.keys(history).reverse(); // создаем массив ключей в обратном порядке
 
-      let displayHistory = document.createElement("div");
-      displayHistory.classList.add("display__hist");
-      displayForm.prepend(displayHistory);
+     
+      let displayHistCalc = document.createElement("p");
+      displayHistCalc.classList.add("display__hist-calc");
+      displayHistory.append(displayHistCalc);
 
-      for (let i = 0; i < displayCalcAndRes.length; i++) {
-        let displayHistCalc = document.createElement("p");
-        displayHistCalc.classList.add("display__hist-calc");
-        displayHistory.append(displayHistCalc);
+      displayHistCalc.textContent = displayCalcAndRes[0];
 
-        displayHistCalc.textContent = displayCalcAndRes[i];
+      let displayHistRes = document.createElement("p");
+      displayHistRes.classList.add("display__hist-res");
+      displayHistory.append(displayHistRes);
 
-        let displayHistRes = document.createElement("p");
-        displayHistRes.classList.add("display__hist-res");
-        displayHistory.append(displayHistRes);
+      displayHistRes.textContent = history[displayCalcAndRes[0]];
 
-        displayHistRes.textContent = history[displayCalcAndRes[i]];
-
-        console.log(displayCalcAndRes[i]);
-      }
+      input.value = "";
+      displayResult.textContent = "";
     }
 
-    getResultBySteps();
+    
   });
 });
+
+keyboardToggle.addEventListener("click", () => {
+  sectionKeyboard.style.visibility = "hidden";
+  // display.style.
+})
 
 input.addEventListener("input", () => {
   // getResultBySteps();
   console.log(input.value);
 });
+
+
+/* 
+
+     
+
+      
+*/
 

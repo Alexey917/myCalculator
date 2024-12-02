@@ -55,9 +55,11 @@ body {
 
 .display {
   display: flex;
+  flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  /* height: 260px; */
+  height: 260px;
+  overflow: hidden;
 }
 
 .display__hist-calc,
@@ -103,12 +105,16 @@ body {
   transition: 0.3s;
 }
 
+.display__form {
+  margin: 0;
+}
+
 .keyboard {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin: 30px 0;
 }
 
 .keyboard__btn {
@@ -130,4 +136,16 @@ body {
 .keyboard_number {
   font-size: 20px;
   color: #ffffff;
+}
+
+.keyboard_toggle {
+  width: 100%;
+  background-color: #000000;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle_icon {
+  width: 15px;
+  height: 15px;
 }
