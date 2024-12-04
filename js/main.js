@@ -5,7 +5,8 @@ const displayResult = document.querySelector(".display__result");
 const displayForm = document.querySelector(".display__form");
 const displayHistory = document.querySelector(".display__hist")
 const keyboardToggle = document.querySelector(".keyboard_toggle")
-const display = document.querySelector(".display")
+const displayToggle = document.querySelector(".display_toggle");
+const display = document.querySelector(".display");
 
 const calculator = {
   lOperand: "",
@@ -90,7 +91,6 @@ function getResultBySteps() {
   displayResult.textContent = "= " + result;
 }
 
-
 keyboard.forEach((btn) => {
   btn.addEventListener("click", () => {
     input.focus();
@@ -120,6 +120,8 @@ keyboard.forEach((btn) => {
       input.value = strTemp;
     }
 
+    getResultBySteps();
+
     if (btn.textContent === "=") {
       getResultBySteps();
       displayResult.classList.add("display__result_show");
@@ -128,7 +130,6 @@ keyboard.forEach((btn) => {
       history[input.value] = displayResult.textContent; // создаем ключ из input'a и записываем в него значение из displayResult
       let displayCalcAndRes = Object.keys(history).reverse(); // создаем массив ключей в обратном порядке
 
-     
       let displayHistCalc = document.createElement("p");
       displayHistCalc.classList.add("display__hist-calc");
       displayHistory.append(displayHistCalc);
@@ -144,15 +145,20 @@ keyboard.forEach((btn) => {
       input.value = "";
       displayResult.textContent = "";
     }
-
-    
   });
 });
 
 keyboardToggle.addEventListener("click", () => {
-  sectionKeyboard.style.visibility = "hidden";
-  // display.style.
-})
+  sectionKeyboard.style.display = "none";
+  display.style.height = "95%";
+  displayToggle.style.display = "block";
+});
+
+displayToggle.addEventListener("click", () => {
+  sectionKeyboard.style.display = "flex";
+  display.style.height = "50%";
+  displayToggle.style.display = "none";
+});
 
 input.addEventListener("input", () => {
   // getResultBySteps();
