@@ -3,8 +3,8 @@ const keyboard = document.querySelectorAll(".keyboard__btn");
 const sectionKeyboard = document.querySelector(".keyboard");
 const displayResult = document.querySelector(".display__result");
 const displayForm = document.querySelector(".display__form");
-const displayHistory = document.querySelector(".display__hist")
-const keyboardToggle = document.querySelector(".keyboard_toggle")
+const displayHistory = document.querySelector(".display__hist");
+const keyboardToggle = document.querySelector(".keyboard_toggle");
 const displayToggle = document.querySelector(".display_toggle");
 const display = document.querySelector(".display");
 
@@ -27,7 +27,7 @@ function arrayForCalculations(str) {
   }
 
   input.value = str;
-  operands = str.split(/[+-/*%]/g); // выделяем только операнды
+  let operands = str.split(/[+-/*%]/g); // выделяем только операнды
   let operations = []; // массив для операций
   let calc = []; // массив для вычисления итогового результата
 
@@ -67,7 +67,7 @@ function steps(array, index) {
   return array;
 }
 
-function getResultBySteps() {
+function getResultBySteps(strTemp) {
   let arr = arrayForCalculations(strTemp); // берем подготовленный в arrayForCalculations массив
   let result = input.value;
 
@@ -106,24 +106,25 @@ keyboard.forEach((btn) => {
       displayResult.textContent = "";
     }
 
+    let strTemp = input.value;
+    let mainOperation = /[+-/*%]{2,}/g;
+    // operations = strTemp.match(/[+-/*%]/g);
+
     if (btn.classList.contains("keyboard_erase")) {
+      strTemp = strTemp.slice(0, strTemp.indexOf(" ", 0) - 1); // удаляем содержимое btn.textContent, через поиск индекса первого пробела
       input.value = "";
       input.value = strTemp.slice(0, strTemp.length - 1);
     }
-
-    strTemp = input.value;
-    mainOperation = /[+-/*%]{2,}/g;
-    operations = strTemp.match(/[+-/*%]/g);
 
     if (strTemp.match(mainOperation)) {
       strTemp = strTemp.replace(mainOperation, btn.textContent);
       input.value = strTemp;
     }
 
-    getResultBySteps();
+    getResultBySteps(strTemp);
 
     if (btn.textContent === "=") {
-      getResultBySteps();
+      getResultBySteps(strTemp);
       displayResult.classList.add("display__result_show");
       input.classList.add("display__input_hidden");
 
@@ -165,11 +166,9 @@ input.addEventListener("input", () => {
   console.log(input.value);
 });
 
-
 /* 
 
      
 
       
 */
-
