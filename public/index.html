@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css"> 
+  <title>Document</title>
+</head>
+
+<body>
+  <main class="wrapper">
+    <section class="calculator">
+      <header class="header">
+        <nav>
+          <ul class="header__list">
+            <li>
+              <button class="header__btn">
+                <svg class="header__icon">
+                  <use href="img/sprite.svg#equals"></use>
+                </svg> 
+              </button>
+            </li>
+            <li>
+              <button class="header__btn">
+                <svg class="header__icon">
+                  <use href="img/sprite.svg#menu"></use>
+                </svg> 
+              </button>
+            </li>
+            <li>
+              <button class="header__btn">
+                <svg class="header__icon">
+                  <use href="img/sprite.svg#currency"></use>
+                </svg> 
+              </button>
+            </li>
+            <li>
+              <button class="header__btn">
+                <svg class="header__icon">
+                  <use href="img/sprite.svg#history"></use>
+                </svg> 
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <section class="display">
+        <div class="display__hist"></div>
+        <form action="#"  class="display__form">
+          <input type="text" class="display__input" value="0">
+          <p class="display__result"></p>
+        </form>
+        <button class="display_toggle">
+          <svg class="toggle_icon">
+            <use href="img/sprite.svg#display_toggle"></use>
+          </svg> 
+        </button>
+      </section>
+
+      <section class="keyboard">
+        <button class="keyboard_toggle">
+          <svg class="toggle_icon">
+            <use href="img/sprite.svg#keyboard-toggle"></use>
+          </svg> 
+        </button>
+        <button class="keyboard__btn">2nd</button>
+        <button class="keyboard__btn">rad</button>
+        <button class="keyboard__btn">sin</button>
+        <button class="keyboard__btn">cos</button>
+        <button class="keyboard__btn">tan</button>
+
+        <button class="keyboard__btn">x<sup>y</sup></button>
+        <button class="keyboard__btn">lg</button>
+        <button class="keyboard__btn">ln</button>
+        <button class="keyboard__btn">(</button>
+        <button class="keyboard__btn">)</button>
+
+        <button class="keyboard__btn">&#8730;x</button>
+        <button class="keyboard__btn keyboard_main-operation">C</button>
+        <button class="keyboard__btn keyboard_main-operation keyboard_erase">
+          <svg class="header__icon">
+            <use href="img/sprite.svg#erase"></use>
+          </svg> 
+        </button>
+        <button class="keyboard__btn keyboard_main-operation">%</button>
+        <button class="keyboard__btn keyboard_main-operation">/</button>
+
+        <button class="keyboard__btn">x!</button>
+        <button class="keyboard__btn keyboard_number">7</button>
+        <button class="keyboard__btn keyboard_number">8</button>
+        <button class="keyboard__btn keyboard_number">9</button>
+        <button class="keyboard__btn keyboard_main-operation">*</button>
+
+        <button class="keyboard__btn">1/x</button>
+        <button class="keyboard__btn keyboard_number">4</button>
+        <button class="keyboard__btn keyboard_number">5</button>
+        <button class="keyboard__btn keyboard_number">6</button>
+        <button class="keyboard__btn keyboard_main-operation">-</button>
+
+        <button class="keyboard__btn">&pi;</button>
+        <button class="keyboard__btn keyboard_number">1</button>
+        <button class="keyboard__btn keyboard_number">2</button>
+        <button class="keyboard__btn keyboard_number">3</button>
+        <button class="keyboard__btn keyboard_main-operation">+</button>
+
+        <button class="keyboard__btn">
+          <svg class="header__icon">
+            <use href="img/sprite.svg#loop"></use>
+          </svg> 
+        </button>
+        <button class="keyboard__btn keyboard_number">e</button>
+        <button class="keyboard__btn keyboard_number">0</button>
+        <button class="keyboard__btn keyboard_number">.</button>
+        <button class="keyboard__btn keyboard_main-operation">=</button>
+      </section>
+    </section>
+  </main>
+
+</body>
+</html>
