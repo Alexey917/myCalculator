@@ -1,12 +1,11 @@
+import { getResultBySteps } from "./getResultBySteps";
+import { keyboardSwitching } from "./keyboardSwitching";
+
 const input = document.querySelector(".display__input");
 const keyboard = document.querySelectorAll(".keyboard__btn");
-const sectionKeyboard = document.querySelector(".keyboard");
 const displayResult = document.querySelector(".display__result");
-const displayForm = document.querySelector(".display__form");
+// const displayForm = document.querySelector(".display__form");
 const displayHistory = document.querySelector(".display__hist");
-const keyboardToggle = document.querySelector(".keyboard_toggle");
-const displayToggle = document.querySelector(".display_toggle");
-const display = document.querySelector(".display");
 
 const calculator = {
   lOperand: "",
@@ -20,76 +19,6 @@ const calculator = {
 };
 
 const history = {};
-
-function arrayForCalculations(str) {
-  if (str.includes("=")) {
-    str = str.slice(0, str.length - 1); // удаляем знак равно из строки
-  }
-
-  input.value = str;
-  let operands = str.split(/[+-/*%]/g); // выделяем только операнды
-  let operations = []; // массив для операций
-  let calc = []; // массив для вычисления итогового результата
-
-  /* вытаскиваем операторы из строки */
-  [...str].filter((item) => {
-    if (
-      item === "+" ||
-      item === "-" ||
-      item === "*" ||
-      item === "/" ||
-      item === "%"
-    ) {
-      operations.push(item);
-    }
-  });
-
-  /* заполняем итоговый массив */
-  for (let i = 0; i < operands.length; i++) {
-    calc.push(operands[i]);
-    if (operations[i]) {
-      calc.push(operations[i]);
-    }
-  }
-
-  return calc;
-}
-
-function steps(array, index) {
-  calculator.lOperand = array[index - 1]; // задаем левый операнд
-  calculator.rOperand = array[index + 1]; // задаем правый операнд
-
-  let result;
-  /* вычисляем значение */
-  result = calculator[array[index]](calculator.lOperand, calculator.rOperand);
-
-  array.splice(index - 1, 3, result); // вставляем результат на место оператора и его операндов
-  return array;
-}
-
-function getResultBySteps(strTemp) {
-  let arr = arrayForCalculations(strTemp); // берем подготовленный в arrayForCalculations массив
-  let result = input.value;
-
-  /* сначало ищем в массиве знаки /,*,% и делаем связанные с ними вычисления */
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === "*" || arr[i] === "/" || arr[i] === "%") {
-      result = steps(arr, i);
-      i = 0; // идем заново по циклу, пока нужные нам знаки не закончаться
-    }
-  }
-
-  /* затем со знаками + и - */
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === "+" || arr[i] === "-") {
-      result = steps(arr, i);
-      i = 0;
-    }
-  }
-
-  /* отображаем результат в поле резултата */
-  displayResult.textContent = "= " + result;
-}
 
 keyboard.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -121,10 +50,10 @@ keyboard.forEach((btn) => {
       input.value = strTemp;
     }
 
-    getResultBySteps(strTemp);
+    getResultBySteps(strTemp, input, calculator, displayResult);
 
     if (btn.textContent === "=") {
-      getResultBySteps(strTemp);
+      getResultBySteps(strTemp, input, calculator, displayResult);
       displayResult.classList.add("display__result_show");
       input.classList.add("display__input_hidden");
 
@@ -149,17 +78,7 @@ keyboard.forEach((btn) => {
   });
 });
 
-keyboardToggle.addEventListener("click", () => {
-  sectionKeyboard.style.display = "none";
-  display.style.height = "95%";
-  displayToggle.style.display = "block";
-});
-
-displayToggle.addEventListener("click", () => {
-  sectionKeyboard.style.display = "flex";
-  display.style.height = "50%";
-  displayToggle.style.display = "none";
-});
+keyboardSwitching();
 
 input.addEventListener("input", () => {
   // getResultBySteps();
