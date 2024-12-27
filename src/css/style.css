@@ -61,6 +61,10 @@ body {
   overflow: hidden;
 }
 
+.display__hist {
+  overflow-y: scroll;
+}
+
 .display__hist-calc,
 .display__hist-res {
   text-align: right;

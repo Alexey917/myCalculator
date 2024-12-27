@@ -1,11 +1,11 @@
 import { getResultBySteps } from "./getResultBySteps";
 import { keyboardSwitching } from "./keyboardSwitching";
+import { calcHist } from "./calcHist";
 
 const input = document.querySelector(".display__input");
 const keyboard = document.querySelectorAll(".keyboard__btn");
 const displayResult = document.querySelector(".display__result");
 // const displayForm = document.querySelector(".display__form");
-const displayHistory = document.querySelector(".display__hist");
 
 const calculator = {
   lOperand: "",
@@ -17,8 +17,6 @@ const calculator = {
   "/": (lOperand, rOperand) => +lOperand / +rOperand,
   "%": (lOperand, rOperand) => +lOperand % +rOperand,
 };
-
-const history = {};
 
 keyboard.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -56,22 +54,7 @@ keyboard.forEach((btn) => {
       getResultBySteps(strTemp, input, calculator, displayResult);
       displayResult.classList.add("display__result_show");
       input.classList.add("display__input_hidden");
-
-      history[input.value] = displayResult.textContent; // создаем ключ из input'a и записываем в него значение из displayResult
-      let displayCalcAndRes = Object.keys(history).reverse(); // создаем массив ключей в обратном порядке
-
-      let displayHistCalc = document.createElement("p");
-      displayHistCalc.classList.add("display__hist-calc");
-      displayHistory.append(displayHistCalc);
-
-      displayHistCalc.textContent = displayCalcAndRes[0];
-
-      let displayHistRes = document.createElement("p");
-      displayHistRes.classList.add("display__hist-res");
-      displayHistory.append(displayHistRes);
-
-      displayHistRes.textContent = history[displayCalcAndRes[0]];
-
+      calcHist(input, displayResult);
       input.value = "";
       displayResult.textContent = "";
     }
