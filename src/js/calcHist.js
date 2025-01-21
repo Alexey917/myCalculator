@@ -1,8 +1,9 @@
 const displayHistory = document.querySelector(".display__hist");
 
-const history = {};
+let history = {};
 
 export function calcHist(input, displayResult) {
+  if (input.value == "" || input.value == 0) return;
   history[input.value] = displayResult.textContent; // создаем ключ из input'a и записываем в него значение из displayResult
 
   let displayCalcAndRes = Object.keys(history).reverse(); // создаем массив ключей в обратном порядке
@@ -25,4 +26,9 @@ export function calcHist(input, displayResult) {
     displayHistory.removeChild(displayHistory.firstElementChild);
     displayHistory.removeChild(displayHistory.firstElementChild);
   }
+}
+
+export function clearHist() {
+  history = {};
+  displayHistory.innerHTML = "";
 }

@@ -2,6 +2,10 @@ export function steps(calculator, array, index) {
   calculator.lOperand = array[index - 1]; // задаем левый операнд
   calculator.rOperand = array[index + 1]; // задаем правый операнд
 
+  const keyboardEquals = document.querySelector(".keyboard_equals");
+
+  if (calculator.rOperand !== "") keyboardEquals.removeAttribute("disabled");
+  
   let result;
   /* вычисляем значение */
   result = calculator[array[index]](calculator.lOperand, calculator.rOperand);

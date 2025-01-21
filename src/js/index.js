@@ -1,10 +1,12 @@
 import { getResultBySteps } from "./getResultBySteps";
 import { keyboardSwitching } from "./keyboardSwitching";
-import { calcHist } from "./calcHist";
+import { calcHist, clearHist } from "./calcHist";
 
 const input = document.querySelector(".display__input");
 const keyboard = document.querySelectorAll(".keyboard__btn");
 const displayResult = document.querySelector(".display__result");
+const keyboard_C = document.querySelector(".keyboard_C");
+const keyboardEquals = document.querySelector(".keyboard_equals");
 // const displayForm = document.querySelector(".display__form");
 
 const calculator = {
@@ -23,6 +25,7 @@ keyboard.forEach((btn) => {
     input.focus();
     displayResult.classList.remove("display__result_show");
     input.classList.remove("display__input_hidden");
+    keyboardEquals.setAttribute("disabled", "disabled");
 
     input.value == 0 && btn.classList.contains("keyboard_number")
       ? (input.value = btn.textContent)
@@ -31,6 +34,12 @@ keyboard.forEach((btn) => {
     if (btn.textContent === "C") {
       input.value = 0;
       displayResult.textContent = "";
+    }
+
+    if (btn.textContent === "AC") {
+      input.value = 0;
+      displayResult.textContent = "";
+      clearHist();
     }
 
     let strTemp = input.value;
@@ -58,6 +67,10 @@ keyboard.forEach((btn) => {
       input.value = "";
       displayResult.textContent = "";
     }
+
+    input.value == "" || input.value == 0
+      ? (keyboard_C.textContent = "AC")
+      : (keyboard_C.textContent = "C");
   });
 });
 
