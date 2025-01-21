@@ -44,6 +44,7 @@ keyboard.forEach((btn) => {
 
     let strTemp = input.value;
     let mainOperation = /[+-/*%]{2,}/g;
+    let firstPosition = /[+/*%]/g;
     // operations = strTemp.match(/[+-/*%]/g);
 
     if (btn.classList.contains("keyboard_erase")) {
@@ -55,6 +56,10 @@ keyboard.forEach((btn) => {
     if (strTemp.match(mainOperation)) {
       strTemp = strTemp.replace(mainOperation, btn.textContent);
       input.value = strTemp;
+    }
+
+    if (strTemp.length === 2 && strTemp[0].match(firstPosition)) {
+      strTemp = strTemp.replace(/(.)(.)?/g, "$2$1"); // меняем местами первый и второй символы
     }
 
     getResultBySteps(strTemp, input, calculator, displayResult);

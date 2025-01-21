@@ -2,6 +2,7 @@ import { arrayForCalculations } from "./arrayForCalculations";
 import { steps } from "./steps";
 
 export function getResultBySteps(strTemp, input, calculator, displayResult) {
+  const keyboardErase = document.querySelector(".keyboard_erase");
   let arr = arrayForCalculations(strTemp, input); // берем подготовленный в arrayForCalculations массив
   let result = input.value;
 
@@ -21,6 +22,16 @@ export function getResultBySteps(strTemp, input, calculator, displayResult) {
     }
   }
 
-  /* отображаем результат в поле резултата */
-  displayResult.textContent = "= " + result;
+  /* отображаем результат в поле результата */
+  if (result == "") {
+    displayResult.textContent = result;
+    keyboardErase.setAttribute("disabled", "disabled");
+  } else {
+    displayResult.textContent = "= " + result;
+    keyboardErase.removeAttribute("disabled");
+  }
+
+  // if (result == "NaN" || result == "Infinity" || result == "-Infinity") {
+  //   displayResult.textContent =
+  // }
 }

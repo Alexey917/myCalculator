@@ -4,8 +4,8 @@ export function steps(calculator, array, index) {
 
   const keyboardEquals = document.querySelector(".keyboard_equals");
 
-  if (calculator.rOperand !== "") keyboardEquals.removeAttribute("disabled");
-  
+  if (calculator.rOperand !== "") keyboardEquals.removeAttribute("disabled"); // если правый операнд отсутствует блочим кнопку =
+
   let result;
   /* вычисляем значение */
   result = calculator[array[index]](calculator.lOperand, calculator.rOperand);
