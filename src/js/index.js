@@ -17,7 +17,7 @@ const calculator = {
   "-": (lOperand, rOperand) => +lOperand - +rOperand,
   "*": (lOperand, rOperand) => +lOperand * +rOperand,
   "/": (lOperand, rOperand) => +lOperand / +rOperand,
-  "%": (lOperand, rOperand) => +lOperand % +rOperand,
+  "%": (lOperand) => +lOperand / 100,
 };
 
 keyboard.forEach((btn) => {
@@ -63,6 +63,11 @@ keyboard.forEach((btn) => {
     }
 
     getResultBySteps(strTemp, input, calculator, displayResult);
+
+    if (btn.textContent === "%") {
+      console.log(typeof displayResult.textContent);
+      input.value = displayResult.textContent.slice(1);
+    }
 
     if (btn.textContent === "=") {
       getResultBySteps(strTemp, input, calculator, displayResult);

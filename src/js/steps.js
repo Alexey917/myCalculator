@@ -6,9 +6,18 @@ export function steps(calculator, array, index) {
 
   if (calculator.rOperand !== "") keyboardEquals.removeAttribute("disabled"); // если правый операнд отсутствует блочим кнопку =
 
+  console.log(calculator.rOperand);
+
   let result;
   /* вычисляем значение */
-  result = calculator[array[index]](calculator.lOperand, calculator.rOperand);
+  if (calculator.rOperand === "0" && array[index] === "/") {
+    result = "На ноль делить нельзя";
+    keyboardEquals.setAttribute("disabled", "disabled");
+  } else if (calculator.rOperand === "" && array[index] === "/") {
+    result = "";
+  } else {
+    result = calculator[array[index]](calculator.lOperand, calculator.rOperand);
+  }
 
   array.splice(index - 1, 3, result); // вставляем результат на место оператора и его операндов
   return array;

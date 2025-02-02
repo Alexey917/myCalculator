@@ -30,8 +30,4 @@ export function getResultBySteps(strTemp, input, calculator, displayResult) {
     displayResult.textContent = "= " + result;
     keyboardErase.removeAttribute("disabled");
   }
-
-  // if (result == "NaN" || result == "Infinity" || result == "-Infinity") {
-  //   displayResult.textContent =
-  // }
 }
