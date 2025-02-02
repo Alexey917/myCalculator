@@ -7,6 +7,7 @@ const keyboard = document.querySelectorAll(".keyboard__btn");
 const displayResult = document.querySelector(".display__result");
 const keyboard_C = document.querySelector(".keyboard_C");
 const keyboardEquals = document.querySelector(".keyboard_equals");
+const keyboardPoint = document.querySelector(".keyboard_point");
 // const displayForm = document.querySelector(".display__form");
 
 const calculator = {
@@ -34,12 +35,18 @@ keyboard.forEach((btn) => {
     if (btn.textContent === "C") {
       input.value = 0;
       displayResult.textContent = "";
+      keyboardPoint.removeAttribute("disabled");
     }
 
     if (btn.textContent === "AC") {
       input.value = 0;
       displayResult.textContent = "";
       clearHist();
+      keyboardPoint.removeAttribute("disabled");
+    }
+
+    if (btn.textContent === ".") {
+      btn.setAttribute("disabled", "disabled");
     }
 
     let strTemp = input.value;
@@ -47,10 +54,23 @@ keyboard.forEach((btn) => {
     let firstPosition = /[+/*%]/g;
     // operations = strTemp.match(/[+-/*%]/g);
 
+    if (btn.textContent.match(/[+/*%]/g)) {
+      keyboardPoint.removeAttribute("disabled");
+    }
+
     if (btn.classList.contains("keyboard_erase")) {
       strTemp = strTemp.slice(0, strTemp.indexOf(" ", 0) - 1); // удаляем содержимое btn.textContent, через поиск индекса первого пробела
       input.value = "";
       input.value = strTemp.slice(0, strTemp.length - 1);
+
+      keyboardPoint.setAttribute("disabled", "disabled");
+      let searchPoint = strTemp.split(/[+/*%]/g);
+      if (!searchPoint.includes(".")) {
+        keyboardPoint.removeAttribute("disabled");
+        console.log("we're here!");
+      }
+
+      console.log(searchPoint);
     }
 
     if (strTemp.match(mainOperation)) {
@@ -76,6 +96,7 @@ keyboard.forEach((btn) => {
       calcHist(input, displayResult);
       input.value = "";
       displayResult.textContent = "";
+      keyboardPoint.removeAttribute("disabled");
     }
 
     input.value == "" || input.value == 0

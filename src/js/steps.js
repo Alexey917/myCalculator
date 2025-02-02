@@ -6,8 +6,6 @@ export function steps(calculator, array, index) {
 
   if (calculator.rOperand !== "") keyboardEquals.removeAttribute("disabled"); // если правый операнд отсутствует блочим кнопку =
 
-  console.log(calculator.rOperand);
-
   let result;
   /* вычисляем значение */
   if (calculator.rOperand === "0" && array[index] === "/") {
