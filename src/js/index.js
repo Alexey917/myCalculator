@@ -35,31 +35,24 @@ keyboard.forEach((btn) => {
     if (btn.textContent === "C") {
       input.value = 0;
       displayResult.textContent = "";
-      // keyboardPoint.removeAttribute("disabled");
     }
 
     if (btn.textContent === "AC") {
       input.value = 0;
       displayResult.textContent = "";
       clearHist();
-      // keyboardPoint.removeAttribute("disabled");
     }
-
-    // if (btn.textContent === ".") {
-    //   btn.setAttribute("disabled", "disabled");
-    // }
 
     let strTemp = input.value;
     let mainOperation = /[+-/*%]{2,}/g;
     let firstPosition = /[+/*%\.]/g;
-    // operations = strTemp.match(/[+-/*%]/g);
 
     function searchPoint() {
       let searchPoint = strTemp.split(/[-+/*%]/g);
       console.log(searchPoint);
       for (let i = 0; i < searchPoint.length; i++) {
         keyboardPoint.removeAttribute("disabled");
-        if (searchPoint[i].includes(".") || searchPoint[i].length < 1) {
+        if (searchPoint[i].includes(",") || searchPoint[i].length < 1) {
           console.log(searchPoint[i].length);
           keyboardPoint.setAttribute("disabled", "disabled");
         }
