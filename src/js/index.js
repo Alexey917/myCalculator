@@ -35,43 +35,44 @@ keyboard.forEach((btn) => {
     if (btn.textContent === "C") {
       input.value = 0;
       displayResult.textContent = "";
-      keyboardPoint.removeAttribute("disabled");
+      // keyboardPoint.removeAttribute("disabled");
     }
 
     if (btn.textContent === "AC") {
       input.value = 0;
       displayResult.textContent = "";
       clearHist();
-      keyboardPoint.removeAttribute("disabled");
+      // keyboardPoint.removeAttribute("disabled");
     }
 
-    if (btn.textContent === ".") {
-      btn.setAttribute("disabled", "disabled");
-    }
+    // if (btn.textContent === ".") {
+    //   btn.setAttribute("disabled", "disabled");
+    // }
 
     let strTemp = input.value;
     let mainOperation = /[+-/*%]{2,}/g;
-    let firstPosition = /[+/*%]/g;
+    let firstPosition = /[+/*%\.]/g;
     // operations = strTemp.match(/[+-/*%]/g);
 
-    if (btn.textContent.match(/[+/*%]/g)) {
-      keyboardPoint.removeAttribute("disabled");
+    function searchPoint() {
+      let searchPoint = strTemp.split(/[-+/*%]/g);
+      console.log(searchPoint);
+      for (let i = 0; i < searchPoint.length; i++) {
+        keyboardPoint.removeAttribute("disabled");
+        if (searchPoint[i].includes(".") || searchPoint[i].length < 1) {
+          console.log(searchPoint[i].length);
+          keyboardPoint.setAttribute("disabled", "disabled");
+        }
+      }
     }
 
     if (btn.classList.contains("keyboard_erase")) {
       strTemp = strTemp.slice(0, strTemp.indexOf(" ", 0) - 1); // удаляем содержимое btn.textContent, через поиск индекса первого пробела
       input.value = "";
       input.value = strTemp.slice(0, strTemp.length - 1);
-
-      keyboardPoint.setAttribute("disabled", "disabled");
-      let searchPoint = strTemp.split(/[+/*%]/g);
-      if (!searchPoint.includes(".")) {
-        keyboardPoint.removeAttribute("disabled");
-        console.log("we're here!");
-      }
-
-      console.log(searchPoint);
     }
+
+    searchPoint();
 
     if (strTemp.match(mainOperation)) {
       strTemp = strTemp.replace(mainOperation, btn.textContent);
