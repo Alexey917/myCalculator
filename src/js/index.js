@@ -52,7 +52,7 @@ keyboard.forEach((btn) => {
       console.log(searchPoint);
       for (let i = 0; i < searchPoint.length; i++) {
         keyboardPoint.removeAttribute("disabled");
-        if (searchPoint[i].includes(",") || searchPoint[i].length < 1) {
+        if (searchPoint[i].includes(".") || searchPoint[i].length < 1) {
           console.log(searchPoint[i].length);
           keyboardPoint.setAttribute("disabled", "disabled");
         }
@@ -79,7 +79,8 @@ keyboard.forEach((btn) => {
     getResultBySteps(strTemp, input, calculator, displayResult);
 
     if (btn.textContent === "%") {
-      console.log(typeof displayResult.textContent);
+      console.log(displayResult.textContent);
+
       input.value = displayResult.textContent.slice(1);
     }
 

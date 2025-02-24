@@ -4,7 +4,7 @@ export function arrayForCalculations(str, input) {
   }
 
   input.value = str;
-  let operands = str.split(/[+-/*%]/g); // выделяем только операнды
+  let operands = str.split(/[+/*%-]/g); // выделяем только операнды
   let operations = []; // массив для операций
   let calc = []; // массив для вычисления итогового результата
 

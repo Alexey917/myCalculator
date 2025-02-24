@@ -1,4 +1,4 @@
-export function steps(calculator, array, index) {
+export function calculations(calculator, array, index) {
   calculator.lOperand = array[index - 1]; // задаем левый операнд
   calculator.rOperand = array[index + 1]; // задаем правый операнд
 
@@ -13,10 +13,19 @@ export function steps(calculator, array, index) {
     keyboardEquals.setAttribute("disabled", "disabled");
   } else if (calculator.rOperand === "" && array[index] === "/") {
     result = "";
+  } else if (typeof calculator.rOperand === 'number' && (array[index] === '+' || array[index] === '-')) {
+    result = calculator[array[index]](calculator.lOperand, (calculator.lOperand * calculator.rOperand)); 
   } else {
     result = calculator[array[index]](calculator.lOperand, calculator.rOperand);
+    result = String(Math.round(result * 1e9) / 1e9); //округление
+  }
+
+  if (array[index] === "%") {
+    result = +result;
+    
   }
 
   array.splice(index - 1, 3, result); // вставляем результат на место оператора и его операндов
+  console.log(array);
   return array;
 }
