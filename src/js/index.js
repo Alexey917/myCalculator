@@ -8,6 +8,7 @@ const displayResult = document.querySelector(".display__result");
 const keyboard_C = document.querySelector(".keyboard_C");
 const keyboardEquals = document.querySelector(".keyboard_equals");
 const keyboardPoint = document.querySelector(".keyboard_point");
+const keyboardE = document.querySelector(".keyboard_e");
 // const displayForm = document.querySelector(".display__form");
 
 const calculator = {
@@ -28,7 +29,7 @@ keyboard.forEach((btn) => {
     input.classList.remove("display__input_hidden");
     keyboardEquals.setAttribute("disabled", "disabled");
 
-    input.value == 0 && btn.classList.contains("keyboard_number")
+    input.value === "0" && btn.classList.contains("keyboard_number")
       ? (input.value = btn.textContent)
       : (input.value += btn.textContent);
 
@@ -49,11 +50,11 @@ keyboard.forEach((btn) => {
 
     function searchPoint() {
       let searchPoint = strTemp.split(/[-+/*%]/g);
-      console.log(searchPoint);
+      // console.log(searchPoint);
       for (let i = 0; i < searchPoint.length; i++) {
         keyboardPoint.removeAttribute("disabled");
         if (searchPoint[i].includes(".") || searchPoint[i].length < 1) {
-          console.log(searchPoint[i].length);
+          // console.log(searchPoint[i].length);
           keyboardPoint.setAttribute("disabled", "disabled");
         }
       }
@@ -79,8 +80,6 @@ keyboard.forEach((btn) => {
     getResultBySteps(strTemp, input, calculator, displayResult);
 
     if (btn.textContent === "%") {
-      console.log(displayResult.textContent);
-
       input.value = displayResult.textContent.slice(1);
     }
 
@@ -104,7 +103,7 @@ keyboardSwitching();
 
 input.addEventListener("input", () => {
   // getResultBySteps();
-  console.log(input.value);
+  // console.log(input.value);
 });
 
 /* 

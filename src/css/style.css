@@ -138,7 +138,7 @@ body {
   color: orange;
 }
 
-.keyboard_number {
+.keyboard_number, .keyboard_point {
   font-size: 20px;
   color: #ffffff;
 }
