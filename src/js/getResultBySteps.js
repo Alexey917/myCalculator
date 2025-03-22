@@ -4,7 +4,21 @@ import { calculations } from "./calculations";
 export function getResultBySteps(strTemp, input, calculator, displayResult) {
   const keyboardErase = document.querySelector(".keyboard_erase");
   let arr = arrayForCalculations(strTemp, input); // берем подготовленный в arrayForCalculations массив
+  // console.log();
+  // if (arr.length === 1 && arr[0] === "Ошибка") {
+  //   displayResult.textContent = arr[0];
+  //   return;
+  // }
+
   console.log(arr);
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === "Ошибка") {
+      displayResult.textContent = arr[i];
+      return;
+    }
+  }
+
   let result = input.value;
 
   /* сначало ищем в массиве знаки % и делаем связанные с ними вычисления */
@@ -31,19 +45,10 @@ export function getResultBySteps(strTemp, input, calculator, displayResult) {
     }
   }
 
-  console.log(typeof result);
-
-  let eError = result.match(/^\d+e\d+$/g);
-  let e = result.match(/e/g);
-
   /* отображаем результат в поле результата */
   if (result == "") {
     displayResult.textContent = result;
     keyboardErase.setAttribute("disabled", "disabled");
-  } else if (result == "e") {
-    displayResult.textContent = 2.71828183;
-  } else if (typeof result !== "object" && !eError && e) {
-    displayResult.textContent = "Ошибка";
   } else {
     displayResult.textContent = "= " + result;
     keyboardErase.removeAttribute("disabled");
